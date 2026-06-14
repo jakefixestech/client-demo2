@@ -1,17 +1,457 @@
 ---
+import "../styles/global.css";
 
+const navLinks = [
+  { label: "Home", href: "#top" },
+  { label: "About", href: "#about" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Services", href: "#services" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Contact", href: "#contact" },
+];
+
+// Editorial portfolio grid — mixed tile sizes for a curated, asymmetric feel.
+const galleries = [
+  {
+    title: "Senior Portraits",
+    img: "/senior.jpg",
+    span: "md:col-span-2 md:row-span-2",
+    ratio: "aspect-[3/4]",
+  },
+  {
+    title: "Couples",
+    img: "/couples.png",
+    span: "md:col-span-2",
+    ratio: "aspect-[4/3]",
+  },
+  {
+    title: "Engagement",
+    img: "/engagement.jpg",
+    span: "md:col-span-2",
+    ratio: "aspect-[4/3]",
+  },
+  {
+    title: "Family",
+    img: "/family.jpg",
+    span: "md:col-span-2 md:row-span-2",
+    ratio: "aspect-[3/4]",
+  },
+  {
+    title: "Maternity",
+    img: "/maternity.jpg",
+    span: "md:col-span-2",
+    ratio: "aspect-[4/3]",
+  },
+  {
+    title: "Pet Photography",
+    img: "/pet.jpg",
+    span: "md:col-span-2",
+    ratio: "aspect-[4/3]",
+  },
+  {
+    title: "Events & Parties",
+    img: "/events.jpg",
+    span: "md:col-span-4",
+    ratio: "aspect-[16/7]",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Client Demo2</title>
-	</head>
-	<body>
-		<h1>Client Demo2</h1>
-	</body>
+<!doctype html>
+<html lang="en" class="bg-white scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meredith Lewis Photography — White Mountains, New Hampshire</title>
+    <meta
+      name="description"
+      content="A New Hampshire based photography business rooted in the White Mountains, capturing candid, heartfelt moments — senior portraits, couples, engagement, family, maternity, pets, and events."
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+
+    <!-- Google Fonts: Playfair Display (serif headings) + Inter (sans body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --font-serif: "Playfair Display", Georgia, serif;
+        --font-sans: "Inter", system-ui, sans-serif;
+      }
+      .font-serif {
+        font-family: var(--font-serif);
+      }
+      body {
+        font-family: var(--font-sans);
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-neutral-900 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-neutral-900 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+      >Skip to content</a
+    >
+
+    <!-- ============== NAV ============== -->
+    <header id="top" class="sticky top-0 z-40 border-b border-neutral-200 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+        <a
+          href="#top"
+          class="font-serif text-lg leading-none tracking-tight text-neutral-900 sm:text-xl"
+        >
+          Meredith Lewis Photography
+        </a>
+
+        <!-- Desktop nav -->
+        <nav aria-label="Primary" class="hidden items-center gap-7 lg:flex">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+              >
+                {link.label}
+              </a>
+            ))
+          }
+          <a
+            href="#contact"
+            class="rounded-full border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-900 hover:text-white"
+          >
+            Get in Touch
+          </a>
+        </nav>
+
+        <!-- Mobile hamburger -->
+        <button
+          id="menu-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          class="inline-flex flex-col gap-1.5 p-2 lg:hidden"
+        >
+          <span class="block h-0.5 w-6 bg-neutral-900"></span>
+          <span class="block h-0.5 w-6 bg-neutral-900"></span>
+          <span class="block h-0.5 w-6 bg-neutral-900"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <nav
+        id="mobile-menu"
+        aria-label="Mobile"
+        class="hidden border-t border-neutral-200 bg-white lg:hidden"
+      >
+        <div class="mx-auto flex max-w-6xl flex-col px-5 py-3 sm:px-8">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="border-b border-neutral-100 py-3 text-sm font-medium text-neutral-700 hover:text-neutral-900"
+              >
+                {link.label}
+              </a>
+            ))
+          }
+          <a
+            href="#contact"
+            class="mt-3 rounded-full border border-neutral-900 px-4 py-2.5 text-center text-sm font-medium text-neutral-900 hover:bg-neutral-900 hover:text-white"
+          >
+            Get in Touch
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============== MASTHEAD ============== -->
+      <section class="mx-auto max-w-6xl px-5 pt-14 pb-10 sm:px-8 sm:pt-20 lg:pt-24">
+        <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div class="lg:col-span-6">
+            <p class="mb-5 text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+              White Mountains &middot; New Hampshire
+            </p>
+            <h1
+              class="font-serif text-4xl leading-[1.1] tracking-tight text-neutral-900 text-balance sm:text-5xl lg:text-6xl"
+            >
+              Capturing candid &amp; heartfelt moments throughout the White Mountains of New Hampshire
+            </h1>
+            <p class="mt-6 max-w-md text-base leading-relaxed text-neutral-600">
+              Natural, unposed photography that feels like you — created with warmth, patience,
+              and an eye for the quiet moments that matter most.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#portfolio"
+                class="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700"
+              >
+                View the Galleries
+              </a>
+              <a
+                href="#contact"
+                class="rounded-full border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
+              >
+                Get in Touch
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6">
+            <figure class="border border-neutral-200 bg-white p-3 sm:p-4">
+              <img
+                src="/hero.jpg"
+                alt="Meredith Lewis sitting in a New Hampshire lupine field, wearing her Meredith Lewis Photography hoodie"
+                width="1000"
+                height="1200"
+                class="aspect-[5/6] w-full object-cover"
+              />
+              <figcaption class="mt-3 text-xs uppercase tracking-[0.2em] text-neutral-400">
+                Meredith Lewis
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== INTRO ============== -->
+      <section id="about" class="border-y border-neutral-200 bg-neutral-50">
+        <div class="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-20">
+          <p class="mb-5 text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+            About
+          </p>
+          <p class="font-serif text-2xl leading-relaxed text-neutral-800 text-pretty sm:text-[1.7rem]">
+            A New Hampshire based photography business rooted in the picturesque White Mountains,
+            capturing candid, meaningful moments that feel genuine and tell your story in a way
+            that&apos;s true to you — all while keeping photography approachable and affordable.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============== PORTFOLIO GRID ============== -->
+      <section id="portfolio" class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div class="mb-10 flex flex-col gap-3 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+              Portfolio
+            </p>
+            <h2 class="font-serif text-3xl tracking-tight text-neutral-900 sm:text-4xl">
+              The Galleries
+            </h2>
+          </div>
+          <p class="max-w-sm text-sm leading-relaxed text-neutral-500">
+            Seven bodies of work — each one a different kind of story, photographed with the same
+            honest, unhurried approach.
+          </p>
+        </div>
+
+        <div class="grid auto-rows-[180px] grid-cols-1 gap-4 sm:auto-rows-[220px] sm:grid-cols-2 md:grid-cols-4">
+          {
+            galleries.map((g, i) => (
+              <a
+                href="#contact"
+                class={`group relative block overflow-hidden bg-neutral-100 ${g.span}`}
+              >
+                <img
+                  src={g.img}
+                  alt={`${g.title} photography by Meredith Lewis`}
+                  loading={i < 2 ? "eager" : "lazy"}
+                  class={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${g.ratio}`}
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/0 to-transparent" />
+                <div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
+                  <h3 class="font-serif text-lg text-white drop-shadow-sm sm:text-xl">
+                    {g.title}
+                  </h3>
+                  <span class="text-xs font-medium uppercase tracking-[0.2em] text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                    View
+                  </span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- ============== AFFORDABLE BAND ============== -->
+      <section id="services" class="bg-neutral-900 text-white">
+        <div class="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8 sm:py-28">
+          <p class="mb-6 text-xs font-medium uppercase tracking-[0.25em] text-neutral-400">
+            Pay What You Can &middot; Seasonal Mini Sessions
+          </p>
+          <blockquote
+            class="font-serif text-2xl leading-snug text-balance sm:text-4xl sm:leading-[1.25]"
+          >
+            &ldquo;I believe everyone should have the luxury to have their photos taken — no matter
+            their financial situation.&rdquo;
+          </blockquote>
+          <p class="mx-auto mt-7 max-w-xl text-base leading-relaxed text-neutral-300">
+            Each season I open a limited number of <em>Pay What You Can</em> mini sessions, so the
+            families and milestones of the White Mountains are never priced out of being
+            remembered.
+          </p>
+          <a
+            href="#contact"
+            class="mt-9 inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-200"
+          >
+            Ask About Mini Sessions
+          </a>
+        </div>
+      </section>
+
+      <!-- ============== TESTIMONIALS ============== -->
+      <section id="testimonials" class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div class="mb-12 text-center">
+          <p class="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+            Kind Words
+          </p>
+          <h2 class="font-serif text-3xl tracking-tight text-neutral-900 sm:text-4xl">
+            Testimonials
+          </h2>
+        </div>
+
+        <div class="grid gap-10 md:grid-cols-2 md:gap-14">
+          <figure class="border-l-2 border-neutral-900 pl-6 sm:pl-8">
+            <blockquote class="font-serif text-xl leading-relaxed text-neutral-800 text-pretty sm:text-2xl">
+              &ldquo;110% recommend! Meredith went above and beyond to make sure we were
+              comfortable with all poses. She was fun, energetic and anyone that can make my
+              fianc&eacute; laugh and naturally smile in photos gets my stamp of approval.&rdquo;
+            </blockquote>
+            <figcaption class="mt-5 text-sm font-medium uppercase tracking-[0.2em] text-neutral-500">
+              — Alyssa S.
+            </figcaption>
+          </figure>
+
+          <figure class="border-l-2 border-neutral-900 pl-6 sm:pl-8">
+            <blockquote class="font-serif text-xl leading-relaxed text-neutral-800 text-pretty sm:text-2xl">
+              &ldquo;She was able to get my son to relax and take great senior photos &mdash; so
+              many great pictures! She captured the moment beautifully during an emotional time. I
+              would whole heartedly recommend her for any task. Great job, great photographer, great
+              person!&rdquo;
+            </blockquote>
+            <figcaption class="mt-5 text-sm font-medium uppercase tracking-[0.2em] text-neutral-500">
+              — Susan G.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============== CLOSING CTA ============== -->
+      <section id="contact" class="border-t border-neutral-200 bg-neutral-50">
+        <div class="mx-auto max-w-2xl px-5 py-20 text-center sm:px-8 sm:py-28">
+          <p class="mb-5 text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+            Contact
+          </p>
+          <h2 class="font-serif text-4xl tracking-tight text-neutral-900 text-balance sm:text-5xl">
+            Let&apos;s tell your story
+          </h2>
+          <p class="mx-auto mt-5 max-w-md text-base leading-relaxed text-neutral-600">
+            Have a session in mind, or just want to say hello? I&apos;d love to hear from you and
+            help plan something that feels completely your own.
+          </p>
+          <a
+            href="mailto:meredith.lewis2018@gmail.com"
+            class="mt-9 inline-block rounded-full bg-neutral-900 px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-neutral-700"
+          >
+            Get in Touch
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============== FOOTER ============== -->
+    <footer class="border-t border-neutral-200 bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div class="max-w-sm">
+            <img
+              src="/logo.png"
+              alt="Meredith Lewis Photography logo — a hand-drawn White Mountains crest"
+              class="h-28 w-auto sm:h-32"
+            />
+            <p class="mt-4 text-sm leading-relaxed text-neutral-500">
+              Based in the White Mountains — serving Maine, New Hampshire &amp; Vermont
+            </p>
+          </div>
+
+          <nav aria-label="Footer" class="flex flex-col gap-3">
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class="text-sm text-neutral-600 transition-colors hover:text-neutral-900"
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <div>
+            <p class="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">
+              Follow Along
+            </p>
+            <a
+              href="https://www.facebook.com/share/1Ew67obhv6/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z"
+                ></path>
+              </svg>
+              Facebook
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-neutral-200 pt-6">
+          <p class="text-xs text-neutral-400">
+            &copy; {new Date().getFullYear()} Meredith Lewis Photography. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============== VANILLA JS: mobile menu ============== -->
+    <script>
+      const toggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+
+      if (toggle && menu) {
+        toggle.addEventListener("click", () => {
+          const isOpen = menu.classList.toggle("hidden") === false;
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+        });
+
+        // Close the menu when a link inside it is clicked.
+        menu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            menu.classList.add("hidden");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Open menu");
+          });
+        });
+      }
+    </script>
+  </body>
 </html>
